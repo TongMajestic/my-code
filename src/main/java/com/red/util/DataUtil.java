@@ -37,4 +37,9 @@ public class DataUtil {
 
     public static ConcurrentHashMap<String /*roomId*/, List<HttpURLConnection>> ROOM_HTTP = new ConcurrentHashMap<String, List<HttpURLConnection>>();
 
+    private static int count = 0;
+
+    public static void printRedCount(){
+        System.out.println("red > 5000 amount:" + count++);
+    }
 }
