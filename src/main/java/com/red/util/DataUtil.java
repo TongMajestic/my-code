@@ -40,6 +40,6 @@ public class DataUtil {
     private static int count = 0;
 
     public static void printRedCount(){
-        System.out.println("red > 5000 amount:" + count++);
+        System.out.println("red amount:" + count++);
     }
 }

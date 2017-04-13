@@ -28,29 +28,20 @@ public class SocketClientSlave {
             if (DataUtil.RED_FILTER.putIfAbsent(roomId + "_" + sendId, System.currentTimeMillis() + 2 * 60000) != null) {
                 return;
             }
-//            int count = 0;
             Set<String> userIdSet = DataUtil.UESER_TOKEN.keySet();
             for (final String userId : userIdSet) {
                 final String token = DataUtil.UESER_TOKEN.get(userId);
-                /*if (count > 1) {
-                    try {
-                        OperUtil.getRed(userId, token, sendId, roomId);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {*/
                     PoolUtil.RED_THREAD_POOL.execute(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 OperUtil.getRed(userId, token, sendId, roomId);
+                                DataUtil.printRedCount();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
                     });
-//                }
-//                count += 1;
             }
         }
     }
@@ -78,7 +69,7 @@ public class SocketClientSlave {
         msg.addProperty("userId", userId);
         msg.addProperty("token", token);
         session.getBasicRemote().sendText(msg.toString());
-        DataUtil.putSession(userId, roomId, System.currentTimeMillis() + 3 * 60 * 1000, session);
+        DataUtil.putSession(userId, roomId, System.currentTimeMillis() + 10 * 60 * 1000, session);
     }
 
 }

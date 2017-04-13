@@ -7,8 +7,6 @@ import com.red.util.DataUtil;
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @ClientEndpoint
 public class SocketClient extends Thread {
@@ -25,16 +23,16 @@ public class SocketClient extends Thread {
                 JsonObject json = (JsonObject) DataUtil.JSON_PARSER.parse(message);
                 JsonArray array = json.get("MsgList").getAsJsonArray();
                 JsonObject obj = (JsonObject) array.get(0);
-                String str = obj.get("content").getAsString();
+//                String str = obj.get("content").getAsString();
                 String roomId = obj.get("roomId").getAsString();
                 DataUtil.ROOM_QUEUE.add(roomId);
-                String regEx = "[^0-9]";
+                /*String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
                 Matcher m = p.matcher(str);
                 String money = m.replaceAll("").trim();
                 if (money != null && !"".equals(money) && Integer.valueOf(money) > 5000) {
                     DataUtil.printRedCount();
-                }
+                }*/
             }
         } catch (Exception e) {
             System.out.println("master error !");
