@@ -2,7 +2,6 @@
 package com.red;
 
 import com.google.gson.JsonObject;
-import com.red.client.SocketClient;
 import com.red.thread.ClearRedFilterThread;
 import com.red.thread.CloseSessionThread;
 import com.red.thread.LoginRoomThread;
@@ -55,12 +54,7 @@ public class Main {
         clearRedFilterThread.start();
 
         //main account
-        String userId = "122831357";
-        String roomId = "117366944";
-        String up = "8I1J1D1212111K1D1K1I1ZPM8E1JYUJ3JYJZ1D121K7E";
-        String ws = OperUtil.getWsByRoomId(roomId);
-        String token = OperUtil.login(userId, up);
-        SocketClient.connect(userId, roomId, token, ws);
+        OperUtil.masterConnect();
 
     }
 }

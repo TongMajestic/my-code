@@ -1,6 +1,7 @@
 package com.red.util;
 
 import com.google.gson.JsonObject;
+import com.red.client.SocketClient;
 import com.red.constant.CommonConstants;
 
 import java.io.BufferedReader;
@@ -160,5 +161,18 @@ public class OperUtil {
         httpConn.setRequestProperty("Charset", "UTF-8");
         httpConn.connect();
         return httpConn;
+    }
+
+    public static void masterConnect() throws Exception{
+        String userId = "123294277";
+        String roomId = "117366944";
+        String up = "PJJIJPJOJ7JOJDJ8JOJ3J38YP1JI1U1P1ZP71D121DJPJOJ7Y1";
+        String ws = getWsByRoomId(roomId);
+        String token = DataUtil.UESER_TOKEN.get(userId);
+        if(token == null){
+            token = login(userId, up);
+            DataUtil.UESER_TOKEN.put(userId,token);
+        }
+        SocketClient.connect(userId, roomId, token, ws);
     }
 }

@@ -3,6 +3,7 @@ package com.red.client;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.red.util.DataUtil;
+import com.red.util.OperUtil;
 
 import javax.websocket.*;
 import java.io.IOException;
@@ -23,16 +24,8 @@ public class SocketClient extends Thread {
                 JsonObject json = (JsonObject) DataUtil.JSON_PARSER.parse(message);
                 JsonArray array = json.get("MsgList").getAsJsonArray();
                 JsonObject obj = (JsonObject) array.get(0);
-//                String str = obj.get("content").getAsString();
                 String roomId = obj.get("roomId").getAsString();
                 DataUtil.ROOM_QUEUE.add(roomId);
-                /*String regEx = "[^0-9]";
-                Pattern p = Pattern.compile(regEx);
-                Matcher m = p.matcher(str);
-                String money = m.replaceAll("").trim();
-                if (money != null && !"".equals(money) && Integer.valueOf(money) > 5000) {
-                    DataUtil.printRedCount();
-                }*/
             }
         } catch (Exception e) {
             System.out.println("master error !");
@@ -43,6 +36,11 @@ public class SocketClient extends Thread {
     @OnClose
     public void onClose() throws IOException {
         System.out.println("master closed...");
+        try {
+            OperUtil.masterConnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnError
