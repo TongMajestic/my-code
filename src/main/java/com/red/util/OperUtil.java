@@ -164,9 +164,9 @@ public class OperUtil {
     }
 
     public static void masterConnect() throws Exception{
-        String userId = "123294277";
+        String userId = "122831357";
         String roomId = "117366944";
-        String up = "PJJIJPJOJ7JOJDJ8JOJ3J38YP1JI1U1P1ZP71D121DJPJOJ7Y1";
+        String up = "8I1J1D1212111K1D1K1I1ZPM8E1JYUJ3JYJZ1D121K7E";
         String ws = getWsByRoomId(roomId);
         String token = DataUtil.UESER_TOKEN.get(userId);
         if(token == null){
