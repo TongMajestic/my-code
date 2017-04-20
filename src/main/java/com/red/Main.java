@@ -2,10 +2,7 @@
 package com.red;
 
 import com.google.gson.JsonObject;
-import com.red.thread.ClearRedFilterThread;
-import com.red.thread.CloseSessionThread;
-import com.red.thread.LoginRoomThread;
-import com.red.thread.UserInfoThread;
+import com.red.thread.*;
 import com.red.util.DataUtil;
 import com.red.util.OperUtil;
 
@@ -52,6 +49,9 @@ public class Main {
 
         ClearRedFilterThread clearRedFilterThread = new ClearRedFilterThread();
         clearRedFilterThread.start();
+
+        HomePageRoomExecutor homePageRoomExecutor = new HomePageRoomExecutor();
+        homePageRoomExecutor.start();
 
         //main account
         OperUtil.masterConnect();
