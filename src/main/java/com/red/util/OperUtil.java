@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class OperUtil {
 
@@ -168,11 +169,35 @@ public class OperUtil {
         String roomId = "117366944";
         String up = "8I1J1D1212111K1D1K1I1ZPM8E1JYUJ3JYJZ1D121K7E";
         String ws = getWsByRoomId(roomId);
-        String token = DataUtil.UESER_TOKEN.get(userId);
+        String token = DataUtil.MASTER_TOKEN.get(userId);
         if(token == null){
             token = login(userId, up);
-            DataUtil.UESER_TOKEN.put(userId,token);
+            DataUtil.MASTER_TOKEN.put(userId,token);
         }
         SocketClient.connect(userId, roomId, token, ws);
+    }
+
+    public static void modifyUserName() throws Exception{
+        int length = DataUtil.nickname.size();
+        if(length <= 0 ){
+            return;
+        }
+        Random random = new Random();
+        int i = random.nextInt(length);
+        String nickname = DataUtil.nickname.get(i);
+        if(nickname == null){
+            return;
+        }
+        String userId = "125536585";
+        String token = DataUtil.UESER_TOKEN.get(userId);
+        JsonObject data = new JsonObject();
+        data.addProperty("FuncTag", 10005002);
+        data.addProperty("userId", userId);
+        data.addProperty("token", token);
+        data.addProperty("nickname", nickname);
+
+        String para = URLEncoder.encode(data.toString(), "UTF-8");
+        HttpURLConnection httpConn = openConnection(CommonConstants.URL, para);
+        BufferedReader in = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
     }
 }

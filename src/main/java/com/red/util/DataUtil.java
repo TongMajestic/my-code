@@ -22,6 +22,8 @@ public class DataUtil {
 
     public static Map<String /*userId*/, String /*token*/> UESER_TOKEN = new HashMap<String, String>();
 
+    public static Map<String /*userId*/, String /*token*/> MASTER_TOKEN = new HashMap<String, String>();
+
     public static BlockingQueue<String/*roomId*/> ROOM_QUEUE = new LinkedBlockingQueue<String>();
 
     public static ConcurrentHashMap<String/*sendId*/, Long/*expiredTime*/> RED_FILTER = new ConcurrentHashMap<String, Long>();
@@ -42,4 +44,6 @@ public class DataUtil {
     public static void printRedCount(){
         System.out.println("red amount:" + count++);
     }
+
+    public static List<String> nickname = new ArrayList<String>();
 }
