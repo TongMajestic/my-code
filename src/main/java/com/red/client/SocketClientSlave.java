@@ -8,7 +8,6 @@ import com.red.util.PoolUtil;
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Set;
 
 @ClientEndpoint
 public class SocketClientSlave {
@@ -28,21 +27,19 @@ public class SocketClientSlave {
             if (DataUtil.RED_FILTER.putIfAbsent(roomId + "_" + sendId, System.currentTimeMillis() + 2 * 60000) != null) {
                 return;
             }
-            Set<String> userIdSet = DataUtil.UESER_TOKEN.keySet();
-            for (final String userId : userIdSet) {
-                final String token = DataUtil.UESER_TOKEN.get(userId);
-                    PoolUtil.RED_THREAD_POOL.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                OperUtil.getRed(userId, token, sendId, roomId);
-                                DataUtil.printRedCount();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-            }
+            final String userId = DataUtil.USER_TOKEN.get(0);
+            final String token = DataUtil.USER_TOKEN.get(1);
+            PoolUtil.RED_THREAD_POOL.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        OperUtil.getRed(userId, token, sendId, roomId);
+                        DataUtil.printRedCount();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
