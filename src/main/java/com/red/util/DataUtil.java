@@ -6,9 +6,7 @@ import com.red.constant.CommonConstants;
 import javax.websocket.Session;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -20,9 +18,11 @@ public class DataUtil {
 
     public static JsonParser JSON_PARSER = new JsonParser();
 
-    public static Map<String /*userId*/, String /*token*/> UESER_TOKEN = new HashMap<String, String>();
+    public static List<String> USER_TOKEN = new ArrayList<String>();
+//    public static Map<String /*userId*/, String /*token*/> UESER_TOKEN = new HashMap<String, String>();
 
-    public static Map<String /*userId*/, String /*token*/> MASTER_TOKEN = new HashMap<String, String>();
+    public static List<String> MASTER_TOKEN = new ArrayList<String>();
+//    public static Map<String /*userId*/, String /*token*/> MASTER_TOKEN = new HashMap<String, String>();
 
     public static BlockingQueue<String/*roomId*/> ROOM_QUEUE = new LinkedBlockingQueue<String>();
 

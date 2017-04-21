@@ -165,14 +165,18 @@ public class OperUtil {
     }
 
     public static void masterConnect() throws Exception{
-        String userId = "122831357";
-        String roomId = "117366944";
-        String up = "8I1J1D1212111K1D1K1I1ZPM8E1JYUJ3JYJZ1D121K7E";
+
+        String userId = DataUtil.MASTER_TOKEN.get(0);
+        String up = DataUtil.MASTER_TOKEN.get(1);
+        String roomId = DataUtil.MASTER_TOKEN.get(2);
         String ws = getWsByRoomId(roomId);
-        String token = DataUtil.MASTER_TOKEN.get(userId);
-        if(token == null){
+        int length = DataUtil.MASTER_TOKEN.size();
+        String token = null;
+        if(length == 3){
             token = login(userId, up);
-            DataUtil.MASTER_TOKEN.put(userId,token);
+            DataUtil.MASTER_TOKEN.add(token);
+        }else{
+            token = DataUtil.MASTER_TOKEN.get(3);
         }
         SocketClient.connect(userId, roomId, token, ws);
     }
@@ -188,8 +192,10 @@ public class OperUtil {
         if(nickname == null){
             return;
         }
-        String userId = "125536585";
-        String token = DataUtil.UESER_TOKEN.get(userId);
+        System.out.println("nickname:" + nickname);
+
+        String userId = DataUtil.USER_TOKEN.get(0);
+        String token = DataUtil.USER_TOKEN.get(1);
         JsonObject data = new JsonObject();
         data.addProperty("FuncTag", 10005002);
         data.addProperty("userId", userId);
