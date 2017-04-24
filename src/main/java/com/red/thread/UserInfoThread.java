@@ -13,7 +13,7 @@ public class UserInfoThread {
     ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
 
     public void execute() {
-        //延迟60分钟执行，每天执行一次
+        //延迟10秒执行，每60分钟执行一次
         schedule.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -28,7 +28,7 @@ public class UserInfoThread {
                 }
 
             }
-        }, 10, 2 * 60 * 60, TimeUnit.SECONDS);
+        }, 10, 60 * 60, TimeUnit.SECONDS);
     }
 
 

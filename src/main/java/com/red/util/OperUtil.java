@@ -166,18 +166,10 @@ public class OperUtil {
 
     public static void masterConnect() throws Exception{
 
-        String userId = DataUtil.MASTER_TOKEN.get(0);
-        String up = DataUtil.MASTER_TOKEN.get(1);
-        String roomId = DataUtil.MASTER_TOKEN.get(2);
+        String userId = DataUtil.USER_TOKEN.get(0);
+        String token = DataUtil.USER_TOKEN.get(1);
+        String roomId = DataUtil.USER_TOKEN.get(2);
         String ws = getWsByRoomId(roomId);
-        int length = DataUtil.MASTER_TOKEN.size();
-        String token = null;
-        if(length == 3){
-            token = login(userId, up);
-            DataUtil.MASTER_TOKEN.add(token);
-        }else{
-            token = DataUtil.MASTER_TOKEN.get(3);
-        }
         SocketClient.connect(userId, roomId, token, ws);
     }
 
