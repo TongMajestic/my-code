@@ -27,7 +27,7 @@ public class HomePageRoomExecutor extends Thread {
 						DataUtil.ROOM_QUEUE.add(roomId.toString());
 					}
 				}
-				Thread.sleep(15 * 60 * 1000); //每隔15分钟取一次首页房间
+				Thread.sleep(20 * 60 * 1000); //每隔15分钟取一次首页房间
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				e.printStackTrace();
@@ -78,25 +78,34 @@ public class HomePageRoomExecutor extends Thread {
 			JsonObject choiceActor = (JsonObject)parser.parse(str[1].substring(str[1].indexOf("{"), str[1].lastIndexOf("}")+1));
 			JsonArray plateList = (JsonArray)parser.parse(str[2].substring(str[2].indexOf("["), str[2].lastIndexOf("]")+1));
 			JsonArray recommendRoomList = (JsonArray)parser.parse(str[3].substring(str[3].indexOf("["), str[3].lastIndexOf("]")+1));
-			JsonArray posterList = choiceActor.get("posterList").getAsJsonArray();
-			for(JsonElement ele : posterList){
-				JsonObject json = (JsonObject)ele;
-				int actorId = json.get("actorId").getAsInt();
-				set.add(actorId);
+			JsonArray posterList = null;
+			if(choiceActor.get("posterList") != null && choiceActor.get("posterList").isJsonArray()){
+				posterList = choiceActor.get("posterList").getAsJsonArray();
 			}
-			for(JsonElement ele : plateList){
-				JsonObject json = (JsonObject)ele;
-				JsonArray array = json.get("result").getAsJsonArray();
-				for(JsonElement child : array){
-					JsonObject obj = (JsonObject)child;
-					int roomId = obj.get("roomId").getAsInt();
-					set.add(roomId);
+			if(posterList != null && posterList.size() > 0){
+				for(JsonElement ele : posterList){
+					JsonObject json = (JsonObject)ele;
+					int actorId = json.get("actorId").getAsInt();
+					set.add(actorId);
 				}
 			}
-			for(JsonElement ele : recommendRoomList){
-				JsonObject json = (JsonObject)ele;
-				int roomId = json.get("roomId").getAsInt();
-				set.add(roomId);
+			if(plateList != null && plateList.size() > 0){
+				for(JsonElement ele : plateList){
+					JsonObject json = (JsonObject)ele;
+					JsonArray array = json.get("result").getAsJsonArray();
+					for(JsonElement child : array){
+						JsonObject obj = (JsonObject)child;
+						int roomId = obj.get("roomId").getAsInt();
+						set.add(roomId);
+					}
+				}
+			}
+			if(recommendRoomList != null && recommendRoomList.size() > 0){
+				for(JsonElement ele : recommendRoomList){
+					JsonObject json = (JsonObject)ele;
+					int roomId = json.get("roomId").getAsInt();
+					set.add(roomId);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
