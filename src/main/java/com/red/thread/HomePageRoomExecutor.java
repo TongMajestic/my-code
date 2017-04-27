@@ -31,7 +31,7 @@ public class HomePageRoomExecutor extends Thread {
 							DataUtil.ROOM_QUEUE.add(roomId.toString());
 						}
 					}
-					Thread.sleep(15 * 60 * 1000); //每隔15分钟取一次首页房间
+					Thread.sleep(16 * 60 * 1000); //每隔15分钟取一次首页房间
 				}else{
 					c.set(Calendar.HOUR_OF_DAY,9);
 					Thread.sleep(c.getTimeInMillis() - System.currentTimeMillis());
