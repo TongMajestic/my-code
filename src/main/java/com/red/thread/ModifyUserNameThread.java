@@ -2,6 +2,8 @@ package com.red.thread;
 
 import com.red.util.OperUtil;
 
+import java.util.Calendar;
+
 /**
  * Created by Tong on 17/4/20.
  */
@@ -11,8 +13,15 @@ public class ModifyUserNameThread extends Thread {
         while (true){
 
             try {
+
                 OperUtil.modifyUserName();
-                Thread.sleep(30 * 60 * 1000);
+                Calendar c = Calendar.getInstance();
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                if(hour >= 21){
+                    Thread.sleep(60 * 60 * 1000);
+                }else{
+                    Thread.sleep(120 * 60 * 1000);
+                }
             }catch (Exception e){
                 e.printStackTrace();
             }
