@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,15 +22,21 @@ public class HomePageRoomExecutor extends Thread {
 	public void run(){
 		while(true){
 			try {
-				Set<Integer> set = jsopParse();
-				if(set.size() > 0){
-					for(Integer roomId : set){
-						DataUtil.ROOM_QUEUE.add(roomId.toString());
+				Calendar c = Calendar.getInstance();
+				int hour = c.get(Calendar.HOUR_OF_DAY);
+				if(hour < 3 || hour >= 9){
+					Set<Integer> set = jsopParse();
+					if(set.size() > 0){
+						for(Integer roomId : set){
+							DataUtil.ROOM_QUEUE.add(roomId.toString());
+						}
 					}
+					Thread.sleep(14 * 60 * 1000); //每隔15分钟取一次首页房间
+				}else{
+					c.set(Calendar.HOUR_OF_DAY,9);
+					Thread.sleep(c.getTimeInMillis() - System.currentTimeMillis());
 				}
-				Thread.sleep(13 * 60 * 1000); //每隔15分钟取一次首页房间
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -111,10 +118,5 @@ public class HomePageRoomExecutor extends Thread {
 			e.printStackTrace();
 		}
 		return set;
-	}
-
-	public static void main(String[] args) {
-		Set<Integer> set = jsopParse();
-		System.out.println(set);
 	}
 }
