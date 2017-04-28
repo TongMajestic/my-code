@@ -4,7 +4,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.red.client.HomePageSocketClientSlave;
 import com.red.util.DataUtil;
+import com.red.util.OperUtil;
+import com.red.util.PoolUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,11 +30,28 @@ public class HomePageRoomExecutor extends Thread {
 				if(hour < 3 || hour >= 9){
 					Set<Integer> set = jsopParse();
 					if(set.size() > 0){
-						for(Integer roomId : set){
-							DataUtil.ROOM_QUEUE.add(roomId.toString());
+						final String userId = DataUtil.USER_TOKEN.get(0);
+						final String token = DataUtil.USER_TOKEN.get(1);
+						for(final Integer roomId : set){
+							try {
+								PoolUtil.ROOM_WS_POOL.execute(new Runnable() {
+									@Override
+									public void run() {
+										try {
+											String ws = OperUtil.getWsByRoomId(String.valueOf(roomId));
+											HomePageSocketClientSlave.connect(userId, String.valueOf(roomId), token, ws);
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+								});
+
+							}catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
-					Thread.sleep(16 * 60 * 1000); //每隔15分钟取一次首页房间
+					Thread.sleep(70 * 60 * 1000); //每隔70分钟取一次首页房间
 				}else{
 					c.set(Calendar.HOUR_OF_DAY,9);
 					Thread.sleep(c.getTimeInMillis() - System.currentTimeMillis());

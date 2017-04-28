@@ -62,6 +62,9 @@ public class Main {
         CloseSessionThread closeSessionThread = new CloseSessionThread();
         closeSessionThread.start();
 
+        CloseHomePageSessionThread closeHomePageSessionThread = new CloseHomePageSessionThread();
+        closeHomePageSessionThread.start();
+
         ClearRedFilterThread clearRedFilterThread = new ClearRedFilterThread();
         clearRedFilterThread.start();
 
