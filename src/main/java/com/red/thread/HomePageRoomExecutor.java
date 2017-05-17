@@ -27,7 +27,7 @@ public class HomePageRoomExecutor extends Thread {
 			try {
 				Calendar c = Calendar.getInstance();
 				int hour = c.get(Calendar.HOUR_OF_DAY);
-				if(hour < 3 || hour >= 9){
+				if(hour < 2 || hour >= 21){
 					Set<Integer> set = jsopParse();
 					if(set.size() > 0){
 						final String userId = DataUtil.USER_TOKEN.get(0);
@@ -53,7 +53,7 @@ public class HomePageRoomExecutor extends Thread {
 					}
 					Thread.sleep(70 * 60 * 1000); //每隔70分钟取一次首页房间
 				}else{
-					c.set(Calendar.HOUR_OF_DAY,9);
+					c.set(Calendar.HOUR_OF_DAY,21);
 					Thread.sleep(c.getTimeInMillis() - System.currentTimeMillis());
 				}
 			} catch (Exception e) {
