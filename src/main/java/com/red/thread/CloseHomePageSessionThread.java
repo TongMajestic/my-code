@@ -11,6 +11,7 @@ public class CloseHomePageSessionThread extends Thread {
     public void run() {
         while (true) {
             try {
+
                 Set<String> keys = DataUtil.homePageSessionMap.keySet();
                 Long now = System.currentTimeMillis();
                 for (String key : keys) {
