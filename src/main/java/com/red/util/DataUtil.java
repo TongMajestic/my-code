@@ -4,6 +4,7 @@ import com.google.gson.JsonParser;
 import com.red.constant.CommonConstants;
 
 import javax.websocket.Session;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -14,6 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by Admin on 2017/4/3.
  */
 public class DataUtil {
+
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static JsonParser JSON_PARSER = new JsonParser();
 

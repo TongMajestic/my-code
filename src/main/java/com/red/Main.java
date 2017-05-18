@@ -2,7 +2,6 @@
 package com.red;
 
 import com.google.gson.JsonObject;
-import com.red.thread.*;
 import com.red.util.DataUtil;
 import com.red.util.OperUtil;
 
@@ -53,26 +52,26 @@ public class Main {
         }
 
         //thread start
-        UserInfoThread userInfoThread = new UserInfoThread();
-        userInfoThread.execute();
+//        UserInfoThread userInfoThread = new UserInfoThread();
+//        userInfoThread.execute();
 
-        LoginRoomThread loginRoomThread = new LoginRoomThread();
-        loginRoomThread.start();
+//        LoginRoomThread loginRoomThread = new LoginRoomThread();
+//        loginRoomThread.start();
 
-        CloseSessionThread closeSessionThread = new CloseSessionThread();
-        closeSessionThread.start();
+//        CloseSessionThread closeSessionThread = new CloseSessionThread();
+//        closeSessionThread.start();
 
-        CloseHomePageSessionThread closeHomePageSessionThread = new CloseHomePageSessionThread();
-        closeHomePageSessionThread.start();
+//        CloseHomePageSessionThread closeHomePageSessionThread = new CloseHomePageSessionThread();
+//        closeHomePageSessionThread.start();
 
-        ClearRedFilterThread clearRedFilterThread = new ClearRedFilterThread();
-        clearRedFilterThread.start();
+//        ClearRedFilterThread clearRedFilterThread = new ClearRedFilterThread();
+//        clearRedFilterThread.start();
 
-        HomePageRoomExecutor homePageRoomExecutor = new HomePageRoomExecutor();
-        homePageRoomExecutor.start();
+//        HomePageRoomExecutor homePageRoomExecutor = new HomePageRoomExecutor();
+//        homePageRoomExecutor.start();
 
-        ModifyUserNameThread modifyUserNameThread = new ModifyUserNameThread();
-        modifyUserNameThread.start();
+//        ModifyUserNameThread modifyUserNameThread = new ModifyUserNameThread();
+//        modifyUserNameThread.start();
 
         //main account
         OperUtil.masterConnect();
