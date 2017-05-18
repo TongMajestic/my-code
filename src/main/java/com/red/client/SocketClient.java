@@ -40,6 +40,14 @@ public class SocketClient extends Thread {
                         DataUtil.printRedCount();
                         System.out.println(content);
                     }
+
+                    if(money >= 15000){
+                        DataUtil.printCount1();
+                    }
+
+                    if(money >= 20000){
+                        DataUtil.printCount2();
+                    }
                 }
 //                DataUtil.ROOM_QUEUE.add(roomId);
             }

@@ -49,5 +49,17 @@ public class DataUtil {
         System.out.println("red amount:" + count++);
     }
 
+    private static int count1 = 0;
+
+    public static void printCount1(){
+        System.out.println("count1:" + count1++);
+    }
+
+    private static int count2 = 0;
+
+    public static void printCount2(){
+        System.out.println("count2:" + count2++);
+    }
+
     public static List<String> nickname = new ArrayList<String>();
 }
