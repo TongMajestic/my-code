@@ -29,9 +29,10 @@ public class SocketClient extends Thread {
                 JsonObject obj = (JsonObject) array.get(0);
                 String roomId = obj.get("roomId").getAsString();
                 String content = obj.get("content").getAsString();
+                String str = content.substring(content.indexOf("红包") - 12);
                 String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
-                Matcher m = p.matcher(content);
+                Matcher m = p.matcher(str);
                 String red = m.replaceAll("").trim();
                 if(red != null && !"".equals(red)){
                     int money = Integer.valueOf(red);
