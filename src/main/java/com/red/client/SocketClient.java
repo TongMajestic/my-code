@@ -8,6 +8,9 @@ import com.red.util.OperUtil;
 import javax.websocket.*;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @ClientEndpoint
 public class SocketClient extends Thread {
@@ -20,12 +23,25 @@ public class SocketClient extends Thread {
     @OnMessage
     public void onMessage(String message) throws Exception {
         try {
-            if (message.contains("红包")) {
+            if (message.contains("秀币的红包")) {
                 JsonObject json = (JsonObject) DataUtil.JSON_PARSER.parse(message);
                 JsonArray array = json.get("MsgList").getAsJsonArray();
                 JsonObject obj = (JsonObject) array.get(0);
                 String roomId = obj.get("roomId").getAsString();
-                DataUtil.ROOM_QUEUE.add(roomId);
+                String content = obj.get("content").getAsString();
+                String regEx = "[^0-9]";
+                Pattern p = Pattern.compile(regEx);
+                Matcher m = p.matcher(content);
+                String red = m.replaceAll("").trim();
+                if(red != null && !"".equals(red)){
+                    int money = Integer.valueOf(red);
+                    if(money >= 10000){
+                        System.out.println(DataUtil.sdf.format(new Date(System.currentTimeMillis())) + "   " + money);
+                        DataUtil.printRedCount();
+                        System.out.println(content);
+                    }
+                }
+//                DataUtil.ROOM_QUEUE.add(roomId);
             }
         } catch (Exception e) {
             System.out.println("master error !");
