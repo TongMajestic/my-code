@@ -76,7 +76,7 @@ public class Main {
         //main account
         OperUtil.masterConnect();
 
-        Thread.sleep(24 * 60 * 1000);
+        Thread.sleep(24 * 60 * 60 * 1000);
 
     }
 }
