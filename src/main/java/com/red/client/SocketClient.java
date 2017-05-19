@@ -37,7 +37,7 @@ public class SocketClient extends Thread {
                 if(red != null && !"".equals(red)){
                     int money = Integer.valueOf(red);
                     if(money >= 10000){
-                        System.out.println(DataUtil.sdf.format(new Date(System.currentTimeMillis())) + "   " + money);
+                        System.out.println(DataUtil.sdf.format(new Date(System.currentTimeMillis())) + "   " + money + "   " + roomId);
                         DataUtil.printRedCount();
                         System.out.println(content);
                     }
